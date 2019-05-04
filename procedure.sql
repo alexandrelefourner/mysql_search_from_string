@@ -22,10 +22,9 @@ begin
 end $$
 
 
-CREATE PROCEDURE display_cols(tablename_input MEDIUMTEXT, my_entries MEDIUMTEXT)
+CREATE PROCEDURE display_cols(database_name MEDIUMTEXT, tablename_input MEDIUMTEXT, my_entries MEDIUMTEXT)
 BEGIN
 
-	DECLARE next_c TEXT DEFAULT NULL;
 	DECLARE next_c TEXT DEFAULT NULL;
 	DECLARE nextlen INT DEFAULT NULL;
 	DECLARE val TEXT DEFAULT NULL;
@@ -48,7 +47,7 @@ BEGIN
 		SET next_c = SUBSTRING_INDEX(my_entries,',',1);
 		SET val = TRIM(next_c);
 
-		IF column_exists(tablename, val) THEN 
+		IF column_exists(database_name, tablename, val) THEN 
 			IF NOT LENGTH(cols) = 0 THEN
 				SET cols = CONCAT(cols, ",");
 			END IF;
